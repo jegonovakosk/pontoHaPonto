@@ -1,0 +1,28 @@
+body {
+  background-color: #1a202c !important;
+  color: #fff;
+}
+
+* {
+  color: #fff;
+}
+
+.input-date {
+  border: none;
+  height: 36px;
+  color: #fff;
+  background-color: #2d3748;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+/* Adiciona um ícone personalizado */
+.input-date::before {
+  color: #fff; /* Mude a cor conforme necessário */
+  font-size: 1.5em;
+}
+
+.input-date::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+}
