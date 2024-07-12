@@ -54,7 +54,7 @@ const ListWorkHours = ({ arrayList }) => {
       boxShadow="md"
       bg="gray.700"
     >
-      <SimpleGrid columns={2} spacing={4} mb={6}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mb={6}>
         <Box bg="teal.500" p={4} borderRadius="md" boxShadow="md">
           <Text color="#fff" fontSize="lg">
             Horas Mensais
@@ -72,15 +72,15 @@ const ListWorkHours = ({ arrayList }) => {
           </Text>
         </Box>
       </SimpleGrid>
-      <TableContainer>
+      <TableContainer maxWidth={{ base: "250px", md: "100%" }} overflowX="auto">
         <Table variant="striped" colorScheme="gray.700">
           <Thead>
             <Tr>
               <Th color="#fff">Data</Th>
               <Th color="#fff">Entrada manhã</Th>
-              <Th color="#fff">Saida da manhã</Th>
+              <Th color="#fff">Saída da manhã</Th>
               <Th color="#fff">Entrada tarde</Th>
-              <Th color="#fff">Entrada saída</Th>
+              <Th color="#fff">Saída da tarde</Th>
               <Th color="#fff">Total (hrs)</Th>
             </Tr>
           </Thead>

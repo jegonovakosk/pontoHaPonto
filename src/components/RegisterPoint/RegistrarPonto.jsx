@@ -114,7 +114,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
   useEffect(() => {
     getAllWorkHours();
   }, [date]);
-  // Use useEffect to log the formData state whenever it updates
+
   const handleSubmit = (newformData) => {
     if (newformData.morningStart && newformData.morningEnd === "") {
       postHandleApi(newformData);
@@ -122,10 +122,12 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
       putHandleApi(newformData);
     }
   };
+
   const postHandleApi = async (obj) => {
     await postWorkHours(obj);
     getMonthsAll(dateList);
   };
+
   const putHandleApi = async (obj) => {
     if (formData.morningStart) {
       await putWorkHours(obj);
@@ -150,6 +152,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
+        style={{ width: "100%", marginBottom: "20px" }}
       />
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={6}>
         <Box>
@@ -161,6 +164,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
             type="time"
             value={morningEntry}
             onChange={(e) => setMorningEntry(e.target.value)}
+            style={{ width: "100%" }}
           />
           <Button colorScheme="teal" onClick={handleMorningEntry} width="100%">
             {morningEntry || "Registrar Hora"}
@@ -175,6 +179,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
             type="time"
             value={morningExit}
             onChange={(e) => setMorningExit(e.target.value)}
+            style={{ width: "100%" }}
           />
           <Button colorScheme="teal" onClick={handleMorningExit} width="100%">
             {morningExit || "Registrar Hora"}
@@ -189,6 +194,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
             type="time"
             value={afternoonEntry}
             onChange={(e) => setAfternoonEntry(e.target.value)}
+            style={{ width: "100%" }}
           />
           <Button
             colorScheme="teal"
@@ -207,6 +213,7 @@ const WorkHours = ({ dateList, getMonthsAll }) => {
             type="time"
             value={afternoonExit}
             onChange={(e) => setAfternoonExit(e.target.value)}
+            style={{ width: "100%" }}
           />
           <Button colorScheme="teal" onClick={handleAfternoonExit} width="100%">
             {afternoonExit || "Registrar Hora"}
