@@ -1,61 +1,78 @@
 // src/context/AuthContext.jsx
-import { createContext, useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom"; // Importe useNavigate para redirecionamento
-import api from "../service/api"; // Nossa instância do Axios
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../service/api";
 
-// Cria o contexto
 const AuthContext = createContext();
 
-// Provedor do contexto de autenticação
-// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false); // Estado para autenticação
-  const navigate = useNavigate(); // useNavigate para redirecionar
+  const [authenticated, setAuthenticated] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // Efeito para verificar a autenticação inicial do usuário
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
-      // Aqui você pode adicionar uma lógica para validar o token
-      setAuthenticated(true); // Define autenticado como true se o token for válido
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setAuthenticated(true);
+      // Opcionalmente, você pode buscar os dados do usuário aqui
+      // fetchUser();
     }
     setLoading(false);
   }, []);
 
-  // Função de login
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await api.get("/auth/user");
+      setUser(response.data);
+      setAuthenticated(true);
+    } catch (error) {
+      console.error("Erro ao buscar usuário", error);
+      logout();
+    }
+  }, []);
+
   const login = async (email, password) => {
     try {
       const response = await api.post("/auth/login", { email, password });
-      const { access_token } = response.data;
+      const { access_token, user } = response.data;
       localStorage.setItem("authToken", access_token);
+      api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
       setUser(user);
-      setAuthenticated(true); // Define autenticado como true após o login
+      setAuthenticated(true);
+      setError(null);
       navigate("/");
-      return user;
     } catch (error) {
       console.error("Erro ao fazer login", error);
-      throw error;
+      setError("Falha ao fazer login. Verifique suas credenciais.");
     }
   };
 
-  // Função de logout
   const logout = () => {
     localStorage.removeItem("authToken");
+    delete api.defaults.headers.common["Authorization"];
     setUser(null);
-    setAuthenticated(false); // Define autenticado como false após o logout
-    navigate("/");
+    setAuthenticated(false);
+    navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, authenticated, error, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Hook personalizado para usar o contexto de autenticação
 export const useAuth = () => {
   return useContext(AuthContext);
 };
