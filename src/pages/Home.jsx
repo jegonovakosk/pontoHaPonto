@@ -6,8 +6,10 @@ import ListWorkHours from "../components/ListregisterPoints/ListWorkHours";
 import { useEffect, useState } from "react";
 import { months } from "../utils/months";
 import { getWorkHoursMonths } from "../service/working.service";
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
+  const { logout } = useAuth();
   const [arrayList, setArrayList] = useState([]);
   const [dateList, setDateList] = useState({});
   const [currentMonthIndex, setCurrentMonthIndex] = useState(
@@ -64,8 +66,9 @@ const Home = () => {
               variant="ghost"
               colorScheme="gray.500"
               mr={4}
+              onClick={logout}
             >
-              Home
+              sair
             </Button>
           </Flex>
         </Flex>
