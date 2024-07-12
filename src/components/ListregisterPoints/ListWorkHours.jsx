@@ -72,7 +72,7 @@ const ListWorkHours = ({ arrayList }) => {
           </Text>
         </Box>
       </SimpleGrid>
-      <TableContainer maxWidth={{ base: "260px", md: "100%" }} overflowX="auto">
+      <TableContainer maxWidth={{ base: "290", md: "100%" }} overflowX="auto">
         <Table variant="striped" colorScheme="gray.700">
           <Thead>
             <Tr>
