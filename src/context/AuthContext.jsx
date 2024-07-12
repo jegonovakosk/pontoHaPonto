@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("authToken");
     setUser(null);
     setAuthenticated(false); // Define autenticado como false após o logout
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   // Renderiza o componente de login se não estiver autenticado
