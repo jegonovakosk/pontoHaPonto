@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
+      navigate("/");
     } catch (error) {
       setError("Credenciais inválidas. Por favor, tente novamente.");
       console.error("Erro ao fazer login", error);

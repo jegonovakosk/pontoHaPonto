@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import WorkHours from "../components/RegisterPoint/RegistrarPonto";
 import ListWorkHours from "../components/ListregisterPoints/ListWorkHours";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { getWorkHoursMonths } from "../service/working.service";
 import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { logout } = useAuth();
   const [arrayList, setArrayList] = useState([]);
   const [dateList, setDateList] = useState({});
@@ -17,6 +18,11 @@ const Home = () => {
   );
 
   useEffect(() => {
+    const auth = window.localStorage.getItem("authToken");
+    if (!auth) {
+      navigate("/login");
+      return;
+    }
     const currentMonth = new Date().getMonth();
     setCurrentMonthIndex(currentMonth);
     setDateList(months[currentMonth]);

@@ -39,7 +39,6 @@ api.interceptors.response.use(
         case 401: // Não autorizado
           console.error("Não autorizado. Faça login novamente.");
           localStorage.removeItem("authToken");
-          window.location.href = "/login";
           // Podemos redirecionar para a página de login ou fazer logout aqui
           // Por exemplo: window.location.href = '/login';
           break;
