@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authToken", access_token);
       setUser(user);
       setAuthenticated(true); // Define autenticado como true após o login
+      navigate("/");
       return user;
     } catch (error) {
       console.error("Erro ao fazer login", error);
