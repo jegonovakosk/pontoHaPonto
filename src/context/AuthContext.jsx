@@ -48,15 +48,6 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  // Renderiza o componente de login se não estiver autenticado
-  if (loading) {
-    return <p>Carregando...</p>; // ou um componente de carregamento
-  }
-
-  if (!authenticated) {
-    navigate("/login");
-  }
-
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
