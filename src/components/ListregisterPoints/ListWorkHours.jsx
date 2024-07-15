@@ -26,10 +26,13 @@ const ListWorkHours = ({ arrayList }) => {
     let monthlyMinutes = 0;
 
     arrayList.forEach((item) => {
-      const [hours, minutes] = item.total.split(":").map(Number);
-      totalMinutes += hours * 60 + minutes;
-      // Assuming monthlyHours is a total for the current month, summing up the same as totalHours for now
-      monthlyMinutes += hours * 60 + minutes;
+      if (item.total) {
+        debugger;
+        const [hours, minutes] = item.total.split(":").map(Number);
+        totalMinutes += hours * 60 + minutes;
+        // Assuming monthlyHours is a total for the current month, summing up the same as totalHours for now
+        monthlyMinutes += hours * 60 + minutes;
+      }
     });
 
     setTotalHours(
